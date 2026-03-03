@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 
-/* ================= CLEAN CUISINE BANNER ================= */
+/* ================= BANNER CONFIG ================= */
 
 const bannerConfig = {
   "Indian Cuisine": {
@@ -19,18 +19,17 @@ const bannerConfig = {
     pillBg: "rgba(255,107,53,0.15)",
     pillBorder: "rgba(255,200,80,0.35)",
     pillText: "#FFD9A0",
-    /* Geometric accent shapes */
     shapes: [
-      { type: "ring",   x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
-      { type: "ring",   x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
-      { type: "ring",   x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
-      { type: "dot",    x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
-      { type: "dot",    x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
-      { type: "dot",    x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
-      { type: "dot",    x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
-      { type: "dot",    x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
-      { type: "line",   x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
-      { type: "line",   x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
+      { type: "ring", x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
+      { type: "ring", x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
+      { type: "ring", x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
+      { type: "dot",  x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
+      { type: "dot",  x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
+      { type: "dot",  x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
+      { type: "dot",  x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
+      { type: "dot",  x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
+      { type: "line", x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
+      { type: "line", x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
     ],
   },
   "Italian Cuisine": {
@@ -49,16 +48,16 @@ const bannerConfig = {
     pillBorder: "rgba(255,200,80,0.3)",
     pillText: "#FFD9A0",
     shapes: [
-      { type: "ring",   x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
-      { type: "ring",   x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
-      { type: "ring",   x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
-      { type: "dot",    x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
-      { type: "dot",    x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
-      { type: "dot",    x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
-      { type: "dot",    x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
-      { type: "dot",    x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
-      { type: "line",   x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
-      { type: "line",   x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
+      { type: "ring", x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
+      { type: "ring", x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
+      { type: "ring", x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
+      { type: "dot",  x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
+      { type: "dot",  x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
+      { type: "dot",  x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
+      { type: "dot",  x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
+      { type: "dot",  x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
+      { type: "line", x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
+      { type: "line", x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
     ],
   },
   "Mexican Cuisine": {
@@ -77,21 +76,22 @@ const bannerConfig = {
     pillBorder: "rgba(255,180,50,0.35)",
     pillText: "#FFD9A0",
     shapes: [
-      { type: "ring",   x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
-      { type: "ring",   x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
-      { type: "ring",   x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
-      { type: "dot",    x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
-      { type: "dot",    x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
-      { type: "dot",    x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
-      { type: "dot",    x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
-      { type: "dot",    x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
-      { type: "line",   x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
-      { type: "line",   x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
+      { type: "ring", x: 8,  y: 50, size: 120, opacity: 0.07, delay: 0 },
+      { type: "ring", x: 88, y: 50, size: 180, opacity: 0.05, delay: 0.4 },
+      { type: "ring", x: 50, y: 10, size: 80,  opacity: 0.06, delay: 0.8 },
+      { type: "dot",  x: 15, y: 25, size: 6,   opacity: 0.4,  delay: 0.2 },
+      { type: "dot",  x: 82, y: 70, size: 4,   opacity: 0.35, delay: 0.6 },
+      { type: "dot",  x: 70, y: 15, size: 5,   opacity: 0.3,  delay: 1.0 },
+      { type: "dot",  x: 25, y: 78, size: 3,   opacity: 0.45, delay: 0.3 },
+      { type: "dot",  x: 92, y: 35, size: 4,   opacity: 0.3,  delay: 0.9 },
+      { type: "line", x: 5,  y: 35, w: 60,  opacity: 0.08, delay: 0.5 },
+      { type: "line", x: 70, y: 72, w: 80,  opacity: 0.06, delay: 0.7 },
     ],
   },
 }
 
-/* ── Scroll-triggered fade-up wrapper ── */
+/* ================= REVEAL ON SCROLL ================= */
+
 function RevealOnScroll({ children, delay = 0, style = {} }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-60px" })
@@ -107,6 +107,8 @@ function RevealOnScroll({ children, delay = 0, style = {} }) {
     </motion.div>
   )
 }
+
+/* ================= CUISINE BANNER ================= */
 
 function CuisineBanner({ cuisineName }) {
   const [tick, setTick] = useState(0)
@@ -146,13 +148,13 @@ function CuisineBanner({ cuisineName }) {
         }
       `}</style>
 
-      {/* Radial glow center */}
+      {/* Radial glow */}
       <div style={{
         position: "absolute", inset: 0,
         background: `radial-gradient(ellipse at 50% 50%, ${cfg.glowColor} 0%, transparent 65%)`,
       }} />
 
-      {/* Geometric shapes — rings, dots, lines */}
+      {/* Geometric shapes */}
       {cfg.shapes.map((s, i) => {
         if (s.type === "ring") return (
           <div key={i} style={{
@@ -160,7 +162,7 @@ function CuisineBanner({ cuisineName }) {
             left: `${s.x}%`, top: `${s.y}%`,
             width: s.size, height: s.size,
             borderRadius: "50%",
-            border: `1px solid rgba(255,200,120,0.12)`,
+            border: "1px solid rgba(255,200,120,0.12)",
             transform: "translate(-50%,-50%)",
             animation: `ringPulse ${4 + i * 0.6}s ease-in-out ${s.delay}s infinite`,
           }} />
@@ -189,7 +191,7 @@ function CuisineBanner({ cuisineName }) {
         return null
       })}
 
-      {/* Top/bottom border lines */}
+      {/* Border lines */}
       <div style={{
         position:"absolute", top:0, left:0, right:0, height:"2px",
         background: `linear-gradient(to right, transparent, ${cfg.borderColor1}, ${cfg.borderColor2}, ${cfg.borderColor1}, transparent)`
@@ -206,8 +208,6 @@ function CuisineBanner({ cuisineName }) {
         alignItems:"center", justifyContent:"center",
         zIndex:10, gap:"10px",
       }}>
-
-        {/* Rotating headline word */}
         <div style={{ height:"52px", overflow:"hidden", display:"flex", alignItems:"center" }}>
           <AnimatePresence mode="wait">
             <motion.span
@@ -232,7 +232,6 @@ function CuisineBanner({ cuisineName }) {
           </AnimatePresence>
         </div>
 
-        {/* Subtitle */}
         <div style={{
           fontSize: "13px", color: cfg.subColor,
           fontFamily: "'Georgia', serif",
@@ -242,14 +241,12 @@ function CuisineBanner({ cuisineName }) {
           {cuisineName}
         </div>
 
-        {/* Divider */}
         <div style={{ display:"flex", alignItems:"center", gap:"12px", marginTop:"2px" }}>
           <div style={{ width:"70px", height:"1px", background:`linear-gradient(to right, transparent, ${cfg.dividerColor})` }} />
           <div style={{ width:"5px", height:"5px", borderRadius:"50%", background: cfg.goldColor, boxShadow:`0 0 8px ${cfg.goldColor}` }} />
           <div style={{ width:"70px", height:"1px", background:`linear-gradient(to left, transparent, ${cfg.dividerColor})` }} />
         </div>
 
-        {/* Tag pills */}
         <div style={{ display:"flex", gap:"8px", flexWrap:"wrap", justifyContent:"center", marginTop:"4px" }}>
           {cfg.tags.map(tag => (
             <span key={tag} style={{
@@ -273,6 +270,14 @@ function CuisineBanner({ cuisineName }) {
 
 function Carousel({ items }) {
   const [current, setCurrent] = useState(0)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
   const safeCurrent = current >= items.length ? 0 : current
   const prev = () => setCurrent(i => (i === 0 ? items.length - 1 : i - 1))
   const next = () => setCurrent(i => (i === items.length - 1 ? 0 : i + 1))
@@ -285,6 +290,139 @@ function Carousel({ items }) {
     )
   }
 
+  /* ── MOBILE LAYOUT ── */
+  if (isMobile) {
+    return (
+      <RevealOnScroll delay={0.1}>
+        <div style={{ padding: "20px 20px 40px" }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={items[safeCurrent].name}
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                borderRadius: "20px",
+                overflow: "hidden",
+                width: "100%",
+                height: "420px",
+                position: "relative",
+                boxShadow: "0 25px 60px rgba(0,0,0,0.6)",
+              }}
+            >
+              <img
+                src={items[safeCurrent].img}
+                alt={items[safeCurrent].name}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+
+              {/* Veg/Non-Veg badge */}
+              {items[safeCurrent].type && (
+                <div style={{
+                  position: "absolute", top: "14px", right: "14px",
+                  background: items[safeCurrent].type === "veg"
+                    ? "rgba(34,197,94,0.9)"
+                    : "rgba(239,68,68,0.9)",
+                  borderRadius: "8px",
+                  padding: "5px 12px",
+                  display: "flex", alignItems: "center", gap: "6px",
+                  fontSize: "11px", fontWeight: "700", color: "white",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+                  zIndex: 30, letterSpacing: "1px",
+                }}>
+                  <span style={{
+                    width: "8px", height: "8px",
+                    borderRadius: items[safeCurrent].type === "veg" ? "50%" : "0",
+                    background: "white", display: "inline-block", flexShrink: 0,
+                  }} />
+                  {items[safeCurrent].type === "veg" ? "VEG" : "NON-VEG"}
+                </div>
+              )}
+
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                padding: "22px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                background: "linear-gradient(to top, rgba(13,5,0,0.95) 0%, transparent 70%)",
+              }}>
+                <h3 style={{
+                  color: "white",
+                  fontSize: "20px",
+                  fontFamily: "'Georgia', serif",
+                  marginBottom: "6px",
+                  margin: "0 0 6px 0",
+                }}>
+                  {items[safeCurrent].name}
+                </h3>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <p style={{ color: "rgba(255,200,160,0.8)", fontSize: "13px", margin: 0 }}>
+                    {items[safeCurrent].desc}
+                  </p>
+                  <span style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    fontFamily: "'Georgia', serif",
+                    background: "linear-gradient(135deg,#FFD700,#FF6B35)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}>
+                    {items[safeCurrent].price}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Dot indicators */}
+          <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginTop: "14px" }}>
+            {items.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => setCurrent(i)}
+                style={{
+                  width: i === safeCurrent ? "20px" : "6px",
+                  height: "6px",
+                  borderRadius: "3px",
+                  background: i === safeCurrent ? "#FFD700" : "rgba(255,200,120,0.3)",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                }}
+              />
+            ))}
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", gap: "14px", marginTop: "16px" }}>
+            <button onClick={prev} className="navBtn">←</button>
+            <button onClick={next} className="navBtn">→</button>
+          </div>
+
+          <style>{`
+            .navBtn {
+              width: 52px; height: 52px; border-radius: 50%;
+              border: 1.5px solid rgba(255,180,80,0.4);
+              background: rgba(255,140,40,0.08);
+              color: rgba(255,200,120,0.9); font-size: 20px;
+              cursor: pointer; transition: all 0.3s;
+              backdrop-filter: blur(12px);
+            }
+            .navBtn:hover {
+              background: rgba(255,140,40,0.2);
+              border-color: rgba(255,180,80,0.7);
+              transform: scale(1.1);
+              box-shadow: 0 0 20px rgba(255,140,40,0.2);
+            }
+          `}</style>
+        </div>
+      </RevealOnScroll>
+    )
+  }
+
+  /* ── DESKTOP 3D CAROUSEL ── */
   const visibleItems =
     items.length === 1 ? [items[0]] :
     items.length === 2 ? [items[0], items[1]] :
@@ -397,7 +535,6 @@ function Carousel({ items }) {
           </AnimatePresence>
         </div>
 
-        {/* Nav buttons */}
         <div className="flex justify-center gap-6 mt-6">
           <button onClick={prev} className="navBtn">←</button>
           <button onClick={next} className="navBtn">→</button>
@@ -449,12 +586,12 @@ const categories = [
       {
         name: "Curries",
         items: [
-          { name: "Butter Chicken",      desc: "Creamy curry",          price: "₹220", type: "non-veg", img: "https://www.chompslurrpburp.com/wp-content/uploads/2022/11/butter-chicken-3-819x1024.jpg" },
-          { name: "Paneer Tikka Masala", desc: "Paneer gravy",          price: "₹190", type: "veg",     img: "https://kannanskitchen.com/wp-content/uploads/2023/01/DSC_4752-1362x2048.jpg" },
-          { name: "Dal Makhani",         desc: "Slow cooked dal",       price: "₹150", type: "veg",     img: "https://myfoodstory.com/wp-content/uploads/2018/08/Dal-Makhani-New-4.jpg?fit=1200,9999" },
-          { name: "Gutti Vankay",        desc: "Andhra style veg curry",price: "₹150", type: "veg",     img: "https://cakeworkorange.com/wp-content/uploads/2020/11/stuffed-brinjal-curry-1-scaled.jpg" },
-          { name: "Mutton Rogan Josh",   desc: "Kashmiri curry",        price: "₹280", type: "non-veg", img: "https://www.whiskaffair.com/wp-content/uploads/2019/02/Mutton-Rogan-Josh-2-1.jpg" },
-          { name: "Kadai Chicken",       desc: "Spicy masala",          price: "₹210", type: "non-veg", img: "http://www.flavorquotient.com/wp-content/uploads/2016/08/Kadai-Chicken-FQ-4-1-of-1.jpg" },
+          { name: "Butter Chicken",      desc: "Creamy curry",           price: "₹220", type: "non-veg", img: "https://www.chompslurrpburp.com/wp-content/uploads/2022/11/butter-chicken-3-819x1024.jpg" },
+          { name: "Paneer Tikka Masala", desc: "Paneer gravy",           price: "₹190", type: "veg",     img: "https://kannanskitchen.com/wp-content/uploads/2023/01/DSC_4752-1362x2048.jpg" },
+          { name: "Dal Makhani",         desc: "Slow cooked dal",        price: "₹150", type: "veg",     img: "https://myfoodstory.com/wp-content/uploads/2018/08/Dal-Makhani-New-4.jpg?fit=1200,9999" },
+          { name: "Gutti Vankay",        desc: "Andhra style veg curry", price: "₹150", type: "veg",     img: "https://cakeworkorange.com/wp-content/uploads/2020/11/stuffed-brinjal-curry-1-scaled.jpg" },
+          { name: "Mutton Rogan Josh",   desc: "Kashmiri curry",         price: "₹280", type: "non-veg", img: "https://www.whiskaffair.com/wp-content/uploads/2019/02/Mutton-Rogan-Josh-2-1.jpg" },
+          { name: "Kadai Chicken",       desc: "Spicy masala",           price: "₹210", type: "non-veg", img: "http://www.flavorquotient.com/wp-content/uploads/2016/08/Kadai-Chicken-FQ-4-1-of-1.jpg" },
         ],
       },
       {
@@ -569,7 +706,7 @@ function Menu() {
   return (
     <div style={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}>
 
-      {/* Dark amber background */}
+      {/* Background */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, background: "linear-gradient(160deg, #0d0500 0%, #1a0a00 30%, #2d1000 60%, #0d0500 100%)" }} />
       <style>{`
         @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(70px,50px) scale(1.2); } }
