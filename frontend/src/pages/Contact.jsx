@@ -55,7 +55,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch("http://localhost:5000/api/contacts", {
+      const response = await fetch("https://prajna-restaurant.onrender.com/api/reservations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
