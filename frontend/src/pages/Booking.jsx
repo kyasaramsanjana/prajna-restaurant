@@ -45,7 +45,23 @@ function Booking() {
   const [focused, setFocused] = useState(null)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
-  const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true) }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("http://localhost:5000/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      })
+      const data = await response.json()
+      console.log(data)
+      setSubmitted(true)
+    } catch (err) {
+      console.log("Error:", err)
+      alert("Something went wrong. Please try again.")
+    }
+  }
 
   const getFocusStyle = (name) => ({
     ...inputStyle,
@@ -76,7 +92,6 @@ function Booking() {
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(2) hue-rotate(5deg); cursor: pointer; }
         select option { background: #1a0a00; color: white; }
 
-        /* ✅ FIX: Stop browser autofill turning inputs white */
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
         input:-webkit-autofill:focus,
@@ -128,7 +143,6 @@ function Booking() {
           transition={{ duration: 0.8 }}
           style={{ textAlign: "center", marginBottom: "48px" }}
         >
-          {/* Banner style header — same as menu banners */}
           <div style={{
             position: "relative",
             borderRadius: "16px",
@@ -187,7 +201,6 @@ function Booking() {
                 boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
               }}
             >
-              {/* Success icon */}
               <div style={{
                 width: "72px", height: "72px",
                 borderRadius: "50%",
@@ -219,7 +232,6 @@ function Booking() {
                 We look forward to seeing you on <strong style={{ color: "rgba(255,180,80,0.9)" }}>{form.date}</strong> at <strong style={{ color: "rgba(255,180,80,0.9)" }}>{form.time}</strong> for <strong style={{ color: "rgba(255,180,80,0.9)" }}>{form.guests} guest{form.guests > 1 ? 's' : ''}</strong>.
               </p>
 
-              {/* Divider */}
               <div style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", marginBottom: "32px" }}>
                 <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, transparent, rgba(255,180,80,0.4))" }} />
                 <span style={{ color: "rgba(255,180,80,0.4)", fontSize: "14px" }}>🪔</span>
@@ -249,7 +261,6 @@ function Booking() {
 
           ) : (
 
-            // ── FORM ──
             <motion.div
               key="form"
               initial={{ opacity: 0, y: 20 }}
@@ -306,7 +317,7 @@ function Booking() {
                   />
                 </div>
 
-                {/* Date + Time side by side */}
+                {/* Date + Time */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   <div>
                     <label style={labelStyle}>Date</label>
@@ -369,10 +380,8 @@ function Booking() {
                   />
                 </div>
 
-                {/* Gold divider before button */}
-                <div style={{
-                  display: "flex", alignItems: "center", gap: "12px",
-                }}>
+                {/* Divider */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(255,180,80,0.25))" }} />
                   <span style={{ color: "rgba(255,180,80,0.3)", fontSize: "12px" }}>✦</span>
                   <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(255,180,80,0.25))" }} />

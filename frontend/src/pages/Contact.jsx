@@ -51,7 +51,23 @@ function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
-  const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true) }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch("http://localhost:5000/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      })
+      const data = await response.json()
+      console.log(data)
+      setSubmitted(true)
+    } catch (err) {
+      console.log("Error:", err)
+      alert("Something went wrong. Please try again.")
+    }
+  }
 
   const getFocusStyle = (name) => ({
     ...inputStyle,
@@ -138,7 +154,7 @@ function Contact() {
       {/* Content */}
       <div style={{ position: "relative", zIndex: 1, maxWidth: "900px", margin: "0 auto", padding: "60px 24px 0" }}>
 
-        {/* ── Page Header (same banner style as Booking) ── */}
+        {/* ── Page Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -191,7 +207,6 @@ function Contact() {
             transition={{ duration: 0.7, delay: 0.2 }}
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
-            {/* Location */}
             <div style={infoCardStyle}>
               <p style={{ ...labelStyle, marginBottom: "12px" }}>📍 Location</p>
               <p style={{ color: "rgba(255,200,160,0.75)", fontSize: "14px", lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
@@ -201,7 +216,6 @@ function Contact() {
               </p>
             </div>
 
-            {/* Hours */}
             <div style={infoCardStyle}>
               <p style={{ ...labelStyle, marginBottom: "12px" }}>🕐 Hours</p>
               <p style={{ color: "rgba(255,200,160,0.75)", fontSize: "14px", lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
@@ -212,7 +226,6 @@ function Contact() {
               </p>
             </div>
 
-            {/* Contact */}
             <div style={infoCardStyle}>
               <p style={{ ...labelStyle, marginBottom: "12px" }}>📞 Contact</p>
               <p style={{ color: "rgba(255,200,160,0.75)", fontSize: "14px", lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
@@ -221,7 +234,6 @@ function Contact() {
               </p>
             </div>
 
-            {/* Social */}
             <div style={infoCardStyle}>
               <p style={{ ...labelStyle, marginBottom: "14px" }}>🌐 Follow Us</p>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
@@ -306,7 +318,6 @@ function Contact() {
                       onFocus={() => setFocused("message")} onBlur={() => setFocused(null)} />
                   </div>
 
-                  {/* Divider */}
                   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                     <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(255,180,80,0.25))" }} />
                     <span style={{ color: "rgba(255,180,80,0.3)", fontSize: "12px" }}>✦</span>
@@ -348,7 +359,6 @@ function Contact() {
             padding: "4px",
             boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
           }}>
-            {/* Gold top border accent */}
             <div style={{ height: "2px", background: "linear-gradient(to right, transparent, #FFD700, #FF6B35, #FFD700, transparent)", borderRadius: "2px 2px 0 0", marginBottom: "4px" }} />
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.9!2d78.4477!3d17.4126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDI0JzQ1LjQiTiA3OMKwMjYnNTEuNyJF!5e0!3m2!1sen!2sin!4v1234567890"
